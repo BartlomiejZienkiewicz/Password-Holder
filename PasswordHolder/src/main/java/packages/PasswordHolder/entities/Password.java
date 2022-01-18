@@ -1,22 +1,76 @@
 package packages.PasswordHolder.entities;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Passwords")
 public class Password {
 
-    private Integer passwordId;
-    private Integer userId;
-    private String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long passwordId;
+
+    private String passwordValue;
     private String description;
+    private Integer idOfUser;
+    private String nameOfOwner;
+
+    public String getPasswordValue() {
+        return passwordValue;
+    }
+
+    public void setPasswordValue(String passwordValue) {
+        this.passwordValue = passwordValue;
+    }
+
+    private String getNameOfLoggedUserUser(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username = new String();
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        String finalUsername = username;
+
+        return finalUsername;
+
+    }
 
     public Password() {
     }
 
+    public Password(String nameOfOwner) {
+        this.nameOfOwner = getNameOfLoggedUserUser();
+    }
+
+    public Integer getUserId(){
+        return idOfUser;
+    }
+
+    public void setIdOfUser(Integer idOfUser) {
+        this.idOfUser = idOfUser;
+    }
+
+    public Password(Integer userId, String password) {
+        this.idOfUser = userId;
+        this.passwordValue = password;
+
+    }
+
+
+
     public String getPassword() {
-        return password;
+        return passwordValue;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.passwordValue = password;
     }
 
     public String getDescription() {
@@ -27,19 +81,23 @@ public class Password {
         this.description = description;
     }
 
-    public Integer getPasswordId() {
+    public Long getPasswordId() {
         return passwordId;
     }
 
-    public void setPasswordId(Integer passwordId) {
+    public void setPasswordId(Long passwordId) {
         this.passwordId = passwordId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getIdOfUser() {
+        return idOfUser;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public String getNameOfOwner() {
+        return nameOfOwner;
+    }
+
+    public void setNameOfOwner(String nameOfOwner) {
+        this.nameOfOwner = nameOfOwner;
     }
 }
