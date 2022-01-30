@@ -4,7 +4,7 @@
     <title>Login</title>
 
 </head>
-<form  action="/login" method="post">
+<form  action="/login" method="POST">
     <h1>Log in</h1>
     <div>User</div>
     <input type="text" name="username" value="">
@@ -14,7 +14,8 @@
 
     <input name="submit" type="submit" value="submit">
 
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
 </form>
+    <a href="/sign_up">Sign Up</a>
 </html>

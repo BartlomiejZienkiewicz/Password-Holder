@@ -6,10 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import org.springframework.util.Assert;
-import packages.PasswordHolder.entities.Password;
 import packages.PasswordHolder.entities.User;
-import packages.PasswordHolder.repositories.PasswordRepository;
-import packages.PasswordHolder.repositories.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +19,22 @@ public class InMemoryUserDetailsService  implements UserDetailsService {
     private List<UserDetails> users;
 
 
+    public void addUser(User user){
+        user.setEnabled(true);
+        users.add(user);
+    }
+
+
     public InMemoryUserDetailsService() {
         users = new ArrayList<UserDetails>();
-        users.add(new User("user1","user1",Arrays.asList("USER")));
-        users.add(new User("user2","user2",Arrays.asList("USER")));
-        users.add(new User("admin","admin",Arrays.asList("USER","ADMIN")));
+        User admin = new User("admin","admin",Arrays.asList("USER","ADMIN"));
+        admin.setEnabled(true);
+        User user = new User("user1","user1",Arrays.asList("USER"));
+        user.setEnabled(true);
+        users.add(admin);
+        users.add(user);
+
+
     }
 
     @Override

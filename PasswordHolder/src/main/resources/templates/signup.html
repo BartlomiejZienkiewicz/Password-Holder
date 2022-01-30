@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign up</title>
+
+</head>
+
+<form  action="/sign_up" method='POST'>
+    <h1 >Sign up</h1>
+    <div>Email:</div>
+    <input type='email' name="email" value=''>
+    <div>Username:</div>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <input type='text' name="username" value=''>
+    <div>Password:</div>
+    <input type='password' name="password" value=''>
+    <input  name="submit" type="submit" value="Sign up">
+
+</form>
+
+</html>

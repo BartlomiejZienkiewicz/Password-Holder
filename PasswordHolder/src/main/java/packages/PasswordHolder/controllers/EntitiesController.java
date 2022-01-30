@@ -2,36 +2,28 @@ package packages.PasswordHolder.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import packages.PasswordHolder.entities.Password;
-import packages.PasswordHolder.entities.User;
 import packages.PasswordHolder.repositories.PasswordRepository;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
 public class EntitiesController {
 
-    private EntityManager entityManager;
-
-
-    @Autowired
-    UserDetailsService userDetailsService;
-
     @Autowired
     PasswordRepository passwordRepository;
+
+    private Long idOfPassword;
 
 
 
@@ -82,9 +74,13 @@ public class EntitiesController {
 
         return mav;
     }
+    @RequestMapping(value = "/saveCreatedPassword")
+    public ModelAndView assignPassword(ModelAndView mav,Password password) {
 
-    @RequestMapping(value = "/passwords", method = RequestMethod.POST)
-    public ModelAndView assignPassword(ModelAndView mav, Password password) {
+        if((password.getPasswordValue()=="")||(password.getDescription()=="")){
+            mav.setViewName("createpassword");
+            return mav;
+        }
 
         password.setNameOfOwner(getNameOfLoggedUserUser());
 
@@ -94,4 +90,39 @@ public class EntitiesController {
         mav.setViewName("redirect:/passwords");
         return mav;
     }
-}
+
+
+    @RequestMapping(value = "/passwords/delete/{passwordId}")
+    public ModelAndView deletePassword(ModelAndView mav,@PathVariable("passwordId") Long id)
+    {
+        passwordRepository.deleteById(id);
+        mav.setViewName("redirect:/passwords");
+        return mav;
+    }
+    @RequestMapping(value = "/password")
+    public ModelAndView editPassword(ModelAndView mav,@RequestParam("id") Long id){
+        idOfPassword = id;
+        Optional<Password> password = passwordRepository.findById(id);
+        mav.addObject("password",password);
+        mav.setViewName("password");
+        return mav;
+    }
+
+
+    @RequestMapping(value = "/password", method = RequestMethod.POST)
+    public ModelAndView saveEditedPassword(Password password,  ModelAndView mav) {
+        if (password.getDescription() =="" || (password.getPasswordValue() == "")) {
+            mav.setViewName("/password");
+            return mav;
+        } else {
+            password.setPasswordId(idOfPassword);
+            idOfPassword = null;
+            password.setNameOfOwner(getNameOfLoggedUserUser());
+            passwordRepository.save(password);
+            mav.setViewName("redirect:/passwords");
+            return mav;
+        }
+    }
+    }
+
+

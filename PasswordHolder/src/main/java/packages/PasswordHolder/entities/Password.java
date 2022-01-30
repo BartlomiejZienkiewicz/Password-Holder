@@ -4,6 +4,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Passwords")
@@ -13,7 +15,11 @@ public class Password {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long passwordId;
 
+    @NotNull
+    @Size(min=1, message = "Password can not be empty")
     private String passwordValue;
+    @NotNull
+    @Size(min=1, message = "Description can not be empty")
     private String description;
     private Integer idOfUser;
     private String nameOfOwner;
@@ -21,6 +27,8 @@ public class Password {
     public String getPasswordValue() {
         return passwordValue;
     }
+
+
 
     public void setPasswordValue(String passwordValue) {
         this.passwordValue = passwordValue;

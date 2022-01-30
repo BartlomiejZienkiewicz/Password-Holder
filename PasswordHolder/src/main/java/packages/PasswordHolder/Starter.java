@@ -1,19 +1,13 @@
 package packages.PasswordHolder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import packages.PasswordHolder.entities.Password;
-import packages.PasswordHolder.entities.User;
 import packages.PasswordHolder.repositories.PasswordRepository;
 import packages.PasswordHolder.repositories.UserRepository;
-
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 @Component
 public class Starter implements CommandLineRunner {
@@ -22,7 +16,7 @@ public class Starter implements CommandLineRunner {
     @Autowired
     PasswordRepository passwordRepository;
 
-
+    private List<UserDetails> users;
 
     @Override
     public void run(String... args) throws Exception {
@@ -45,6 +39,7 @@ public class Starter implements CommandLineRunner {
         passwordRepository.save(password1);
         passwordRepository.save(password2);
         passwordRepository.save(password3);
+
 
     }
 }

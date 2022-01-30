@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import packages.PasswordHolder.entities.Password;
 
 @Repository
-public interface PasswordRepository extends CrudRepository<Password, Integer> {
+public interface PasswordRepository extends CrudRepository<Password, Long> {
 }

@@ -1,30 +1,31 @@
 package packages.PasswordHolder.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import packages.PasswordHolder.entities.Password;
+import packages.PasswordHolder.components.mailer.SignUpMailer;
 import packages.PasswordHolder.entities.User;
-import packages.PasswordHolder.repositories.PasswordRepository;
+import packages.PasswordHolder.repositories.UserRepository;
+import packages.PasswordHolder.services.impl.InMemoryUserDetailsService;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
 
 @Controller
 public class MainController {
 
     @Autowired
-    UserDetailsService userDetailsService;
+    InMemoryUserDetailsService detailsService;
 
     @Autowired
-    PasswordRepository passwordRepository;
+    SignUpMailer mailer;
+
+    @Autowired
+    UserRepository userRepository;
+
 
     @RequestMapping("/MainPage")
     private ModelAndView mainPage(ModelAndView mav){
@@ -43,6 +44,7 @@ public class MainController {
         mav.setViewName("login");
         return mav;
     }
+
 
 
 }
