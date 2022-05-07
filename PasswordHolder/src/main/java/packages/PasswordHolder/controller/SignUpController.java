@@ -1,20 +1,18 @@
-package packages.PasswordHolder.controllers;
+package packages.PasswordHolder.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import packages.PasswordHolder.components.mailer.SignUpMailer;
-import packages.PasswordHolder.entities.User;
-import packages.PasswordHolder.repositories.UserRepository;
-import packages.PasswordHolder.services.impl.InMemoryUserDetailsService;
-import packages.PasswordHolder.services.impl.SignUpServiceImpl;
+import packages.PasswordHolder.component.mailer.SignUpMailer;
+import packages.PasswordHolder.entity.User;
+import packages.PasswordHolder.repository.UserRepository;
+import packages.PasswordHolder.service.impl.InMemoryUserDetailsService;
+import packages.PasswordHolder.service.impl.SignUpServiceImpl;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -87,15 +85,11 @@ public class SignUpController {
     }
     @RequestMapping("/confirm_email")
     public ModelAndView confirmEmail(ModelAndView mav,@RequestParam(name="token") String token){
-        System.out.println(token);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Optional<User> userFoundByConfirmationToken =  userRepository.findByConfirmationToken(token);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(userFoundByConfirmationToken.get().getUsername());
+
         if(userFoundByConfirmationToken.isPresent()){
             User user = userFoundByConfirmationToken.get();
             user.setEnabled(true);
-            System.out.println(user.isEnabled());
             detailsService.addUser(userToSignUp);
             mav.setViewName("redirect:/email_confirmed");
             return mav;

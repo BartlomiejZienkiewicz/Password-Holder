@@ -1,4 +1,4 @@
-package packages.PasswordHolder.controllers;
+package packages.PasswordHolder.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import packages.PasswordHolder.entities.Password;
-import packages.PasswordHolder.repositories.PasswordRepository;
+import packages.PasswordHolder.entity.Password;
+import packages.PasswordHolder.repository.PasswordRepository;
 
 import java.util.ArrayList;
 import java.util.List;

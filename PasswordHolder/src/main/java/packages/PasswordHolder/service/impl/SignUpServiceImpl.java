@@ -1,19 +1,14 @@
-package packages.PasswordHolder.services.impl;
+package packages.PasswordHolder.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import packages.PasswordHolder.components.mailer.RandomStringFactory;
-import packages.PasswordHolder.components.mailer.SignUpMailTextFactory;
-import packages.PasswordHolder.components.mailer.SignUpMailer;
-import packages.PasswordHolder.entities.User;
-import packages.PasswordHolder.repositories.UserRepository;
-import packages.PasswordHolder.services.SignUpService;
+import packages.PasswordHolder.component.mailer.RandomStringFactory;
+import packages.PasswordHolder.component.mailer.SignUpMailer;
+import packages.PasswordHolder.entity.User;
+import packages.PasswordHolder.repository.UserRepository;
+import packages.PasswordHolder.service.SignUpService;
 
 @Service
 public class SignUpServiceImpl implements SignUpService {

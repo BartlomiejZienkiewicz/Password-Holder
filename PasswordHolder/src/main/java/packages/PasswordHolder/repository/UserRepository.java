@@ -1,8 +1,8 @@
-package packages.PasswordHolder.repositories;
+package packages.PasswordHolder.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import packages.PasswordHolder.entities.User;
+import packages.PasswordHolder.entity.User;
 
 import java.util.Optional;
 

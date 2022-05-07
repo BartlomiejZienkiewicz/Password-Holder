@@ -1,4 +1,4 @@
-package packages.PasswordHolder.services.impl;
+package packages.PasswordHolder.service.impl;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import org.springframework.util.Assert;
-import packages.PasswordHolder.entities.User;
+import packages.PasswordHolder.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;

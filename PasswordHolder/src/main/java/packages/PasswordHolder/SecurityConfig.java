@@ -8,10 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import packages.PasswordHolder.components.InMemoryAuthenticationProvider;
-import packages.PasswordHolder.services.impl.InMemoryUserDetailsService;
+import packages.PasswordHolder.component.InMemoryAuthenticationProvider;
+import packages.PasswordHolder.service.impl.InMemoryUserDetailsService;
 
 @Configuration
 @EnableWebSecurity(debug = false)
@@ -60,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
